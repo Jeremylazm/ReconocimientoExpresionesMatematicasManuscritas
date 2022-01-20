@@ -1,12 +1,11 @@
-# Author: Casey Duncan
-# Date: 12/19/2018
-# Function Box_Character(img) will find each individual variable, number, math operator, or math notation character within a handwritten equation
-# and save each character as it's own image.
-# Input: img - Image of handwritten math equation
-# Output: X_input - 3D array of each math character saved as it's own image in order from left to right, where the far left character is element 0
-# in the array, the second most left character is element 1 in the array, and so on. Each outputted image is 45x45 pixels, so the shape of the
-# outputted 3D array is n x 45 x 45 where n is the number of math charaters in the equation. For example, the equation x+y=z would output a 3D
-# array of the shape 5 x 45 x 45.
+# Función Box_Character(img) encontrará cada variable individual, número, operador matemático o carácter de notación  
+# matemática dentro de una ecuación escrita a mano y guardará cada carácter como su propia imagen.
+# Entrada: img - Imagen de una ecuación matemática manuscrita
+# Salida: X_input - matriz 3D de cada carácter matemático guardado como su propia imagen en orden de izquierda a 
+# derecha, donde el carácter más a la izquierda es el elemento 0 en la matriz, el segundo carácter más a la izquierda 
+# es el elemento 1 en la matriz, y así sucesivamente . Cada imagen de salida tiene 45x45 píxeles, 
+# por lo que la forma de la matriz 3D de salida es n x 45 x 45, donde n es el número de 
+# caracteres matemáticos en la ecuación. Por ejemplo, la ecuación x+y=z generaría una matriz 3D de la forma 5 x 45 x 45.
 
 import numpy as np
 import cv2
@@ -18,19 +17,19 @@ def Box_Character(img):
 	# Import Photo
 	# path = r'Z:\caseyduncan\Casey Duncan\CSM Grad School Work\2019\Fall\CSCI 575B - Machine Learning\ML Project\Data\Data - Equations\eqn_test3.jpg'
 	# img = cv2.imread(path)
-	gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY) # Convert to gray
+	gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY) # Convierte la imagen en escala de grises
 
-	# Threshold & Morpholigical Close
+	# Umbral y cierre morfológico
 	ret2,th2 = cv2.threshold(gray,0,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
 	kernel = np.ones((2,2),np.uint8)
-	closing = cv2.morphologyEx(th2, cv2.MORPH_CLOSE, kernel)
+	cierre = cv2.morphologyEx(th2, cv2.MORPH_CLOSE, kernel)
 
-	# Find Characters (contours)
-	contours, hierarchy = cv2.findContours(closing, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+	# Buscar caracteres (contornos)
+	contornos, jerarquia = cv2.findContours(cierre, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
-	# Find position of Bounding Box around each Contours
+	# Encuentre la posición del cuadro delimitador alrededor de cada contorno
 	chars_bb = []
-	for cnt in contours:
+	for cnt in contornos:
 		cnt = cnt.reshape((cnt.shape[0],cnt.shape[2]))
 		left_tc = np.amin(cnt, axis=0)
 		right_bc = np.amax(cnt, axis=0)
@@ -40,7 +39,7 @@ def Box_Character(img):
 		max_y = right_bc[1]
 		chars_bb.append([min_x,min_y,max_x,max_y])
 
-	# Find characters that are made of multiple contours (for example: "=" or "i")
+	# Encuentre caracteres que estén hechos de múltiples contornos (por ejemplo: "=" o "i")
 	chars_bb_new = chars_bb.copy()
 	for i in range(len(chars_bb)-1):
 		cnt_i = chars_bb[i]
@@ -62,8 +61,8 @@ def Box_Character(img):
 					chars_bb_new.remove(cnt_i)
 					i=i+1
 
-	# Delete near duplicate contours 
-	# (for example: sometimes the dot on an "i" is thought of as two contours)
+	# Eliminar cerca de contornos duplicados 
+	# (por ejemplo: a veces, el punto en una "i" se considera como dos contornos)
 	chars_bb_new2 = chars_bb_new.copy()
 	for i in range(len(chars_bb_new)-1):
 		cnt_i = chars_bb_new[i]
@@ -83,28 +82,28 @@ def Box_Character(img):
 					if cnt_i in chars_bb_new2:
 						chars_bb_new2.remove(cnt_i)
 
-	# Delete duplicates contours
+	# Eliminar contornos duplicados
 	chars_bb = []
 	for i in chars_bb_new2:
 		if i not in chars_bb:
 			chars_bb.append(i)
 
-	# Order Characters from left to right
+	# Ordenar caracteres de izquierda a derecha
 	chars_bb.sort()
 
-	# Draw bounding box around character
+	# Dibujar un cuadro delimitador alrededor del carácte
 	#cv2.imshow('image', img)
 	#cv2.waitKey(0); cv2.destroyAllWindows(); cv2.waitKey(1)
-	# for cnt in chars_bb:
-	# 	min_x = cnt[0]
-	# 	max_x = cnt[2]
-	# 	min_y = cnt[1]
-	# 	max_y = cnt[3]
-	# 	cv2.rectangle(img,(min_x,min_y),(max_x,max_y),(0,0,255),1)
-		# cv2.imshow('image', img)
-		# cv2.waitKey(0); cv2.destroyAllWindows(); cv2.waitKey(1)
+	#for cnt in chars_bb:
+	 	#min_x = cnt[0]
+	 	#max_x = cnt[2]
+	 	#min_y = cnt[1]
+	 	#max_y = cnt[3]
+	 	#cv2.rectangle(img,(min_x,min_y),(max_x,max_y),(0,0,255),1)
+	 	#cv2.imshow('image', img)
+	 	#cv2.waitKey(0); cv2.destroyAllWindows(); cv2.waitKey(1)
 
-	# Save each character as its own image in a vector of images
+	# Guarde cada carácter como su propia imagen en un vector de imágenes
 	X_input = np.empty((0,45,45),dtype=np.float16)
 	for cnt in chars_bb:
 		size_x = 45
@@ -129,8 +128,11 @@ def Box_Character(img):
 
 		img_i[start_y:end_y,start_x:end_x] = gray[min_y:max_y,min_x:max_x]
 		img_i = cv2.resize(img_i,(45,45))
+		
+		#cv2.imshow('image', img_i)
+		#cv2.waitKey(0); cv2.destroyAllWindows(); cv2.waitKey(1)
 
-		X_input = np.append(X_input, [img_i],axis = 0) #might need to change
+		X_input = np.append(X_input, [img_i]) #might need to change
 
 	#for x in X_input:
 		#cv2.imshow('image', x)
