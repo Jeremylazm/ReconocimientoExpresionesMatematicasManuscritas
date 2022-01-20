@@ -1,9 +1,6 @@
-# Authors: Matt Stanley, Rachel Breshears, & Casey Duncan
-# Date: 12/19/2019
-# The functions below go through the roughly 80,000 images of math characters within their corresponding labeled folders, and save the 
-# data imto the variables X (3D array of almost 80,000 images, # size 45 x 45 pixels, of 66 different math characters) and Y (2D array 
-# of labels corresponding to each input math character image). The data is then made into a pickle file called X_Y_Data.pickle
+# Las siguientes funciones recorren 80000 imágenes de cada caracter, y guardan la data en una matriz de 3D de 80,000 x 45 x 45. Luego guarda la data en un archivo pickle.
 
+# Librerías
 import os
 import numpy as np
 import imageio
@@ -13,102 +10,119 @@ from sklearn.model_selection import train_test_split
 import cv2
 import pickle
 
-def createDict(images_path):
-	#images_path = './extracted_images/' 
-	dirlist = os.listdir(images_path)
+def crearDict(ruta_imagenes) -> None:
 
-	single = []
+    # Recorrer las carpetas del directorio
+	listadir = os.listdir(ruta_imagenes)
+
+    # único -> nombres de las carpetas de un solo caracter
+    # multiple -> nombres de las carpetas de varios caracteres
+	unico = []
 	multiple = []
 
-	for item in dirlist:
-		item = item.lower() #make everything lowercase
-		if len(item) == 1:
-			single.append(item)
+    # Agregar a único o multiple según corresponda
+	for dir in listadir:
+		dir = dir.lower() # Convertir a minúsculas
+		if len(dir) == 1:
+			unico.append(dir)
 		else:
-			multiple.append(item)
+			multiple.append(dir)
 
-	multiple.sort() #alphabetical order
+	multiple.sort() # Ordenar alfabéticamente
 
-	#single_ascii = []
+	unico.sort() # Ordenar con el orden ascii
 
-	#for item in single:
-	#	single_ascii.append(ord(item)) #converts strings to ascii equivalent
-
-	#single_ascii.sort() #ascii numerical order
-	single.sort() #ascii numerical order
-
+    # Diccionarios de caracteres
 	dict = {}
-	counter = 0
+	contador = 0
 
-	for item in multiple:
-		dict[item] = counter
-		counter += 1
-	for item in single:
-		dict[item] = counter
-		counter += 1
+    # Crear diccionario
+	for dir in multiple:
+		dict[dir] = contador
+		contador += 1
 
-	#writing to an Excel file
-	file = open("LabelDict.csv","w")
-	w = csv.writer(file)
+	for dir in unico:
+		dict[dir] = contador
+		contador += 1
 
-	for key, val in dict.items():
-		w.writerow([key,val])
+	# Guardarlo en un archivo csv
+	archivo = open("LabelDict.csv", "w")
+	w = csv.writer(archivo)
 
-	file.close()
+	for clave, valor in dict.items():
+		w.writerow([clave,valor])
 
-def loadDict_AB(file_name):
+    # Cerrar archivo
+	archivo.close()
+
+# Cargar diccionario de caracteres (clave, valor)
+def cargarDict_AB(nombre_archivo) -> dict:
 	dict = {}
-	with open(file_name) as file:
-		readCSV = csv.reader(file)
-		for row in readCSV:
-			if len(row) > 0:
-				dict[row[0]] = int(row[1])
-	return dict
-    
-def loadDict_BA(file_name):
-	dict = {}
-	with open(file_name) as file:
-		readCSV = csv.reader(file)
-		for row in readCSV:
-			if len(row) > 0:
-				dict[int(row[1])] = row[0]
+	with open(nombre_archivo) as f:
+		leerCSV = csv.reader(f)
+		for fila in leerCSV:
+			if len(fila) > 0:
+				dict[fila[0]] = int(fila[1])
 	return dict
 
-def loadDataset(file_name1,file_name2,rate = 0.2): #file_name1 location of all characters, file_name2 dict
-	dict = loadDict(file_name2)
-	ds1 = os.listdir(file_name1)
-	file_count = sum([len(files) for r, d, files in os.walk(file_name1)])
-	counter = 0
-	X = np.empty((0,45,45),dtype=np.uint8)
-	Y = np.empty((0,1),dtype=np.uint8) 
+# Cargar diccionario de caracteres (valor, clave)
+def cargarDict_BA(nombre_archivo) -> dict:
+	dict = {}
+	with open(nombre_archivo) as f:
+		leerCSV = csv.reader(f)
+		for fila in leerCSV:
+			if len(fila) > 0:
+				dict[int(fila[1])] = fila[0]
+	return dict
+
+# Cargar dataset de imágenes
+# nombre_archivo1 -> ubicación de todas las imágenes
+# nombre_archivo2 -> ubicación del diccionario
+def cargarDataset(nombre_archivo1, nombre_archivo2, rate = 0.2):
+	dict = cargarDict_AB(nombre_archivo2)
+	ds1 = os.listdir(nombre_archivo1)
+	contador_archivo = sum([len(files) for r, d, files in os.walk(nombre_archivo1)])
+	contador = 0
+
+	X = np.empty((0, 45, 45), dtype = np.uint8)
+	Y = np.empty((0, 1), dtype = np.uint8) 
+
 	for d in ds1:
-		folder = os.path.join(file_name1,d)
+		folder = os.path.join(nombre_archivo1, d)
 		ds2 = os.listdir(folder)
 		d = d.lower()
 		for d2 in ds2:
 			filei = os.path.join(folder,d2)
-			image = cv2.imread(filei)
-			image = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY) # Convert to gray
-			npi = np.asarray(image).reshape(45,45) #might need to change
-			X = np.append(X, [npi],axis = 0) #might need to change
-			Y = np.append(Y,dict[d])
-			counter += 1
-			output_string = f"Image File {counter} of {file_count}\n"
+			imagen = cv2.imread(filei)
+
+            # Convertir a escala de grises
+			image = cv2.cvtColor(imagen, cv2.COLOR_BGR2GRAY) 
+            
+            # Redimensionar a 45x45
+			npi = np.asarray(image).reshape(45,45)
+
+			X = np.append(X, [npi], axis = 0)
+			Y = np.append(Y, dict[d])
+
+			contador += 1
+			output_string = f"Archivo de imagen {contador} de {contador_archivo}\n"
+
 			sys.stdout.write(output_string)
 			sys.stdout.flush()
-	#x_train,x_test,y_train,y_test = train_test_split(X,Y,test_size = rate)	
+
 	return X, Y
 
 if __name__ == '__main__':
-	path = 'C:/Users/cdunc/Documents/CSM Grad School Work/2019/Fall/CSCI 575B - Machine Learning/Group Project/Data/Single Characters/Removed Duplicates & Symbols'
-	createDict(path)
+    # Ruta de las imágenes
+	ruta = './extracted_images/'
+	crearDict(ruta)
 	
-	dict_name = 'LabelDict.csv'
-	dict = loadDict(dict_name)
-	#for key,val in dict.items():
-	#	print("{} : {}".format(key,val))
+    # Nombre del diccionario de caracteres
+	nombre_diccionario = 'LabelDict.csv'
+	dict = cargarDict_BA(nombre_diccionario)
 
-	#x_train, x_test, y_train, y_test = loadDataset(path,dict_name,rate = 0.2)
-	X, Y = loadDataset(path,dict_name,rate = 0.2)
+	X, Y = cargarDataset(ruta, nombre_diccionario, rate = 0.2)
+
+    # Serializar X y Y en un archivo pickle
 	with open('X_Y_Data.pickle', 'wb') as f:
 		pickle.dump([X, Y], f)
