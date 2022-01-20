@@ -112,5 +112,3 @@ if __name__ == '__main__':
 	X, Y = loadDataset(path,dict_name,rate = 0.2)
 	with open('X_Y_Data.pickle', 'wb') as f:
 		pickle.dump([X, Y], f)
-
-#####
