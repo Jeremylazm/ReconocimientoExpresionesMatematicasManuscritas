@@ -1,0 +1,608 @@
+[
+    {
+        "true": 15, 
+        "image": "SKMBT_36317040717363_eq15.png", 
+        "recognized_symbols": {
+            "a": 2, 
+            "dots": 4, 
+            "c": 2, 
+            "b": 2, 
+            "frac": 1, 
+            "-": 2, 
+            "mul": 2, 
+            "x": 1, 
+            "=": 1
+        }, 
+        "res": 21
+    }, 
+    {
+        "true": 21, 
+        "image": "SKMBT_36317040717351_eq21.png", 
+        "recognized_symbols": {
+            "a": 2, 
+            "c": 1, 
+            "b": 1, 
+            "sqrt": 1, 
+            "2": 2, 
+            "4": 1, 
+            "x": 1, 
+            "=": 4
+        }, 
+        "res": 20
+    }, 
+    {
+        "true": 17, 
+        "image": "SKMBT_36317040717291_eq17.png", 
+        "recognized_symbols": {
+            "a": 1, 
+            "b": 1, 
+            "frac": 1, 
+            "(": 1, 
+            "n": 2, 
+            "=": 1, 
+            "sin": 1
+        }, 
+        "res": 11
+    }, 
+    {
+        "true": 14, 
+        "image": "SKMBT_36317040717362_eq14.png", 
+        "recognized_symbols": {
+            "a": 1, 
+            "frac": 1, 
+            "-": 1, 
+            "o": 1, 
+            "n": 1, 
+            "1": 2, 
+            "2": 1
+        }, 
+        "res": 5
+    }, 
+    {
+        "true": 6, 
+        "image": "SKMBT_36317040717340_eq6.png", 
+        "recognized_symbols": {
+            ")": 2, 
+            "a": 2, 
+            "b": 2, 
+            "=": 3, 
+            "sqrt": 1
+        }, 
+        "res": 8
+    }, 
+    {
+        "true": 22, 
+        "image": "SKMBT_36317040717360_eq22.png", 
+        "recognized_symbols": {
+            "bar": 1, 
+            "frac": 1, 
+            "(": 1, 
+            "k": 4, 
+            "n": 2, 
+            "1": 3, 
+            "2": 1, 
+            "x": 4, 
+            "=": 1, 
+            "+": 3
+        }, 
+        "res": 23
+    }, 
+    {
+        "true": 33, 
+        "image": "SKMBT_36317040717363_eq33.png", 
+        "recognized_symbols": {
+            "bar": 1, 
+            "(": 1, 
+            "sqrt": 1, 
+            "3": 2, 
+            "t": 1, 
+            "tan": 1, 
+            "=": 1
+        }, 
+        "res": 3
+    }, 
+    {
+        "true": 35, 
+        "image": "SKMBT_36317040717291_eq35.png", 
+        "recognized_symbols": {
+            "a": 1, 
+            "A": 1, 
+            "k": 1, 
+            "3": 1, 
+            "n": 2, 
+            "1": 1, 
+            "s": 2, 
+            "x": 1, 
+            "tan": 1, 
+            "=": 1
+        }, 
+        "res": 3
+    }, 
+    {
+        "true": 5, 
+        "image": "SKMBT_36317040717310_eq5.png", 
+        "recognized_symbols": {
+            ")": 1, 
+            "1": 1, 
+            "=": 1
+        }, 
+        "res": 30
+    }, 
+    {
+        "true": 15, 
+        "image": "SKMBT_36317040717320_eq15.png", 
+        "recognized_symbols": {
+            "a": 2, 
+            "c": 2
+        }, 
+        "res": 20
+    }, 
+    {
+        "true": 16, 
+        "image": "SKMBT_36317040717363_eq16.png", 
+        "recognized_symbols": {
+            "a": 2, 
+            "c": 4, 
+            "b": 2, 
+            "frac": 4, 
+            "d": 1, 
+            ")": 1, 
+            "mul": 1, 
+            "x": 2, 
+            "tan": 2, 
+            "=": 3
+        }, 
+        "res": 15
+    }, 
+    {
+        "true": 21, 
+        "image": "SKMBT_36317040717290_eq21.png", 
+        "recognized_symbols": {
+            "a": 1, 
+            "b": 1, 
+            "-": 1, 
+            "sqrt": 1, 
+            "2": 1, 
+            "x": 1, 
+            "=": 4
+        }, 
+        "res": 18
+    }, 
+    {
+        "true": 3, 
+        "image": "SKMBT_36317040717280_eq3.png", 
+        "recognized_symbols": {
+            "x": 1, 
+            "sqrt": 1
+        }, 
+        "res": 2
+    }, 
+    {
+        "true": 4, 
+        "image": "SKMBT_36317040717310_eq4.png", 
+        "recognized_symbols": {
+            "m": 1, 
+            "k": 1, 
+            "-": 1, 
+            "2": 1, 
+            "y": 1, 
+            "tan": 1, 
+            "=": 1, 
+            "+": 1
+        }, 
+        "res": 25
+    }, 
+    {
+        "true": 31, 
+        "image": "SKMBT_36317040717291_eq31.png", 
+        "recognized_symbols": {
+            "c": 1, 
+            "frac": 1, 
+            "-": 2, 
+            "3": 1, 
+            "sqrt": 1, 
+            "n": 1, 
+            "p": 1, 
+            "s": 1, 
+            "=": 2
+        }, 
+        "res": 14
+    }, 
+    {
+        "true": 19, 
+        "image": "SKMBT_36317040717360_eq19.png", 
+        "recognized_symbols": {
+            "a": 1, 
+            "c": 1, 
+            "b": 1, 
+            "+": 1, 
+            "0": 1, 
+            "2": 2, 
+            "mul": 2, 
+            "=": 1
+        }, 
+        "res": 18
+    }, 
+    {
+        "true": 21, 
+        "image": "SKMBT_36317040717291_eq21.png", 
+        "recognized_symbols": {
+            "a": 2, 
+            "c": 1, 
+            "b": 1, 
+            "sqrt": 1, 
+            "2": 1, 
+            "t": 1, 
+            "x": 1, 
+            "=": 4, 
+            "4": 1
+        }, 
+        "res": 20
+    }, 
+    {
+        "true": 27, 
+        "image": "SKMBT_36317040717291_eq27.png", 
+        "recognized_symbols": {
+            "a": 1, 
+            "c": 1, 
+            "b": 1, 
+            "2": 1, 
+            "4": 1, 
+            "y": 1, 
+            "=": 2
+        }, 
+        "res": 20
+    }, 
+    {
+        "true": 29, 
+        "image": "SKMBT_36317040717363_eq29.png", 
+        "recognized_symbols": {
+            "a": 1, 
+            "-": 2
+        }, 
+        "res": 1
+    }, 
+    {
+        "true": 32, 
+        "image": "SKMBT_36317040717362_eq32.png", 
+        "recognized_symbols": {
+            "a": 1, 
+            "frac": 1, 
+            "(": 1, 
+            "1": 2, 
+            "s": 1, 
+            "2": 2, 
+            "=": 2
+        }, 
+        "res": 5
+    }, 
+    {
+        "true": 31, 
+        "image": "SKMBT_36317040717280_eq31.png", 
+        "recognized_symbols": {
+            "a": 1, 
+            "b": 1, 
+            "frac": 1, 
+            "3": 1, 
+            "sqrt": 1, 
+            "s": 1, 
+            "2": 2, 
+            "=": 1
+        }, 
+        "res": 5
+    }, 
+    {
+        "true": 7, 
+        "image": "SKMBT_36317040717291_eq7.png", 
+        "recognized_symbols": {
+            "a": 2, 
+            "c": 4, 
+            "b": 2, 
+            ")": 2, 
+            "+": 2, 
+            "t": 1, 
+            "=": 1, 
+            "k": 1
+        }, 
+        "res": 9
+    }, 
+    {
+        "true": 21, 
+        "image": "SKMBT_36317040717363_eq21.png", 
+        "recognized_symbols": {
+            "b": 1, 
+            "frac": 1, 
+            "+": 1, 
+            "-": 2, 
+            "sqrt": 1, 
+            "n": 1, 
+            "1": 1, 
+            "x": 1, 
+            "tan": 1, 
+            "=": 1
+        }, 
+        "res": 2
+    }, 
+    {
+        "true": 19, 
+        "image": "SKMBT_36317040717340_eq19.png", 
+        "recognized_symbols": {
+            "a": 1, 
+            "c": 1, 
+            "b": 1, 
+            "+": 2, 
+            "0": 1, 
+            "2": 1, 
+            "mul": 2, 
+            "=": 1
+        }, 
+        "res": 18
+    }, 
+    {
+        "true": 26, 
+        "image": "SKMBT_36317040717363_eq26.png", 
+        "recognized_symbols": {
+            "dots": 1, 
+            "a": 1, 
+            "c": 1, 
+            "frac": 1, 
+            ")": 1, 
+            "h": 1, 
+            "+": 1, 
+            "-": 1, 
+            "1": 1, 
+            "2": 1, 
+            "y": 1, 
+            "mul": 1, 
+            "=": 1
+        }, 
+        "res": 25
+    }, 
+    {
+        "true": 21, 
+        "image": "SKMBT_36317040717360_eq21.png", 
+        "recognized_symbols": {
+            "a": 1, 
+            "c": 1, 
+            "b": 1, 
+            "2": 1, 
+            "4": 1, 
+            "x": 1, 
+            "=": 5
+        }, 
+        "res": 20
+    }, 
+    {
+        "true": 27, 
+        "image": "SKMBT_36317040717290_eq27.png", 
+        "recognized_symbols": {
+            "a": 1, 
+            "c": 1, 
+            "bar": 1, 
+            "2": 1, 
+            "4": 1, 
+            "y": 1, 
+            "=": 1
+        }, 
+        "res": 20
+    }, 
+    {
+        "true": 16, 
+        "image": "SKMBT_36317040717341_eq16.png", 
+        "recognized_symbols": {
+            "a": 2, 
+            "c": 2, 
+            "b": 2, 
+            "frac": 4, 
+            "d": 2, 
+            "mul": 1, 
+            "div": 1, 
+            "=": 2
+        }, 
+        "res": 15
+    }, 
+    {
+        "true": 27, 
+        "image": "SKMBT_36317040717351_eq27.png", 
+        "recognized_symbols": {
+            "a": 1, 
+            "c": 1, 
+            "b": 1, 
+            "-": 1, 
+            "1": 2, 
+            "2": 1, 
+            "4": 1
+        }, 
+        "res": 20
+    }, 
+    {
+        "true": 33, 
+        "image": "SKMBT_36317040717290_eq33.png", 
+        "recognized_symbols": {
+            "3": 1, 
+            "sqrt": 1, 
+            "n": 1, 
+            "s": 1, 
+            "2": 1, 
+            "tan": 1, 
+            "pi": 1, 
+            "=": 1
+        }, 
+        "res": 3
+    }, 
+    {
+        "true": 21, 
+        "image": "SKMBT_36317040717260_eq21.png", 
+        "recognized_symbols": {
+            "a": 2, 
+            "c": 1, 
+            "b": 1, 
+            "sqrt": 1, 
+            "2": 2, 
+            "4": 1, 
+            "x": 1, 
+            "=": 4
+        }, 
+        "res": 20
+    }, 
+    {
+        "true": 31, 
+        "image": "SKMBT_36317040717362_eq31.png", 
+        "recognized_symbols": {
+            "a": 1, 
+            "(": 1, 
+            "3": 1, 
+            "sqrt": 1, 
+            "1": 1, 
+            "s": 1, 
+            "2": 1, 
+            "6": 1, 
+            "=": 2
+        }, 
+        "res": 30
+    }, 
+    {
+        "true": 16, 
+        "image": "SKMBT_36317040717320_eq16.png", 
+        "recognized_symbols": {
+            "a": 2, 
+            "c": 2, 
+            "b": 2, 
+            "frac": 4, 
+            "d": 2, 
+            "mul": 1, 
+            "div": 1, 
+            "=": 2
+        }, 
+        "res": 15
+    }, 
+    {
+        "true": 31, 
+        "image": "SKMBT_36317040717260_eq31.png", 
+        "recognized_symbols": {
+            "cos": 1, 
+            "frac": 1, 
+            "sqrt": 1, 
+            "1": 2, 
+            "3": 1, 
+            "2": 1, 
+            "6": 1, 
+            "=": 2
+        }, 
+        "res": 32
+    }, 
+    {
+        "true": 31, 
+        "image": "SKMBT_36317040717363_eq31.png", 
+        "recognized_symbols": {
+            "cos": 1, 
+            "frac": 1, 
+            "(": 1, 
+            "3": 1, 
+            "sqrt": 1, 
+            "1": 1, 
+            "s": 1, 
+            "2": 1, 
+            "=": 1
+        }, 
+        "res": 32
+    }, 
+    {
+        "true": 21, 
+        "image": "SKMBT_36317040717362_eq21.png", 
+        "recognized_symbols": {
+            "a": 1, 
+            "c": 1, 
+            "b": 2, 
+            "frac": 1, 
+            "+": 1, 
+            "-": 1, 
+            "sqrt": 1, 
+            "2": 1, 
+            "=": 1
+        }, 
+        "res": 20
+    }, 
+    {
+        "true": 29, 
+        "image": "SKMBT_36317040717362_eq29.png", 
+        "recognized_symbols": {
+            "frac": 1, 
+            "d": 1, 
+            "1": 2, 
+            "2": 2, 
+            "4": 1, 
+            "=": 2, 
+            "sin": 1
+        }, 
+        "res": 5
+    }, 
+    {
+        "true": 21, 
+        "image": "SKMBT_36317040717280_eq21.png", 
+        "recognized_symbols": {
+            "a": 1, 
+            "c": 1, 
+            "b": 1, 
+            "sqrt": 1, 
+            "2": 1, 
+            "4": 1, 
+            "x": 1, 
+            "=": 3, 
+            "pm": 1
+        }, 
+        "res": 20
+    }, 
+    {
+        "true": 24, 
+        "image": "SKMBT_36317040717290_eq24.png", 
+        "recognized_symbols": {
+            "y": 1, 
+            "x": 1, 
+            "+": 1, 
+            "sqrt": 1
+        }, 
+        "res": 2
+    }, 
+    {
+        "true": 27, 
+        "image": "SKMBT_36317040717363_eq27.png", 
+        "recognized_symbols": {
+            "a": 1, 
+            "c": 2, 
+            "b": 1, 
+            "-": 1, 
+            "2": 1, 
+            "4": 1, 
+            "=": 1
+        }, 
+        "res": 20
+    }, 
+    {
+        "true": 35, 
+        "image": "SKMBT_36317040717363_eq35.png", 
+        "recognized_symbols": {
+            "a": 1, 
+            "c": 1, 
+            "+": 1, 
+            "-": 2, 
+            "1": 2, 
+            "s": 1, 
+            "6": 1, 
+            "tan": 2, 
+            "=": 1
+        }, 
+        "res": 14
+    }, 
+    {
+        "true": 30, 
+        "image": "SKMBT_36317040717351_eq30.png", 
+        "recognized_symbols": {
+            "1": 1, 
+            "0": 2, 
+            "c": 1, 
+            "s": 1
+        }, 
+        "res": 28
+    }
+]
