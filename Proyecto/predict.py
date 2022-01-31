@@ -1,4 +1,4 @@
-# add your imports here
+# Importar las librerias necesarias para predecir una nueva imagen
 from sys import argv
 from glob import glob
 from scipy import misc
@@ -14,49 +14,49 @@ import tensorflow as tf
 from partition import Partition
 from classifyEq import Classify
 
-"""
-add whatever you think it's essential here
-"""
-# global variable
-symMap = {}
+# Cragar los valores de cada simbolo requerido ("0": "dot", "1": "(", ...)
+mapeo_simbolos = {}
 with open('symbol_mapping.json', 'r') as opened:
-	symMap = json.loads(opened.read())
+	mapeo_simbolos = json.loads(opened.read())
 
+# Definir una clase del simbolo predecido
 class SymPred():
-	def __init__(self, prediction, x1, y1, x2, y2):
-		"""
-		<x1,y1> <x2,y2> is the top-left and bottom-right coordinates for the bounding box
-		(x1,y1)
-			   .--------
-			   |	   	|
-			   |	   	|
-			    --------.
-			    		 (x2,y2)
-		"""
-		self.prediction = prediction
+    # Definir un constructor para la clase
+	def __init__(self, prediccion, x1, y1, x2, y2):
+		# Definir los atributos:
+        # Prediccion (latex)
+        # Esquina Superior Izquierda (coordenada X)
+        # Esquina Superior Izquierda (coordenada Y)
+        # Esquina Inferior Derecha (coordenada X)
+        # Esquina Inferior Derecha (coordenada Y)
+		self.prediccion = prediccion
 		self.x1 = x1
 		self.y1 = y1
 		self.x2 = x2
 		self.y2 = y2
 
+    # Definir un metodo para obtener los atributos de la clase
 	def __str__(self):
-		return self.prediction + '\t' + '\t'.join([str(self.x1), str(self.y1), str(self.x2), str(self.y2)])
+        # Retornar los atributos de la clase
+		return self.prediccion + '\t' + '\t'.join([str(self.x1), str(self.y1), str(self.x2), str(self.y2)])
 
-
+# Definir una clase de la imagen predecida
 class ImgPred():
-	def __init__(self, image_name, sym_pred_list, latex = 'LATEX_REPR'):
-		"""
-		sym_pred_list is list of SymPred
-		latex is the latex representation of the equation
-		"""
-		self.image_name = image_name
+    # Definir un constructor para la clase
+	def __init__(self, nombre_imagen, lista_simbolos, latex = 'LATEX_REPR'):
+		# Definir los atributos:
+        # Nombre de la imagen con extension
+        # Expresion (latex)
+        # Lista de simbolos predecidos
+		self.nombre_imagen = nombre_imagen
 		self.latex = latex
-		self.sym_pred_list = sym_pred_list
+		self.lista_simbolos = lista_simbolos
 
+    # Definir un metodo para obtener los atributos de la clase
 	def __str__(self):
-		res = self.image_name + '\t' + \
-		    str(len(self.sym_pred_list)) + '\t' + self.latex + '\n'
-		for sym_pred in self.sym_pred_list:
+		res = self.nombre_imagen + '\t' + \
+		    str(len(self.lista_simbolos)) + '\t' + self.latex + '\n'
+		for sym_pred in self.lista_simbolos:
 			res += sym_pred[0]
 			res += "\t"
 			res += str(sym_pred[3])
@@ -69,62 +69,83 @@ class ImgPred():
 			res += "\n"
 		return res
 
+# Definir un metodo para predecir una nueva imagen
+def predict(ruta_imagen, sess, sr):
+    # Mostrar la ruta de la imagen
+    print(ruta_imagen)
 
-def predict(image_path, sess, sr):
-    """
-    Add your code here
-    """
-    """
-    # Don't forget to store your prediction into ImgPred
-    img_prediction = ImgPred(...)
-    """
-    print(image_path)
-    seg = Segmentation(image_path)
+    # Segmentar la imagen
+    seg = Segmentation(ruta_imagen)
+
+    # Obtener las etiquetas de la iamgen
     d = seg.get_labels()
 
+    # Mostrar las etiquetas de la imagen
     print(d)
 
+    # Mostrar cada etiqueta y exportar imagenes segmentadas
     for label in seg.labels.keys():
         print(label)
         stroke = seg.get_stroke(label)
         scipy.misc.imsave("./tmp/"+ str(label) + ".png", stroke)
 
+    # Aplicar el algoritmo MST
     mst = MinimumSpanningTree(d).get_mst()
 
+    # Mostrar los pesos de la salida de MST
     print()
     print(mst)
 
+    # Participnar las imagenes segmentadas de acuerdo al MST
     pa = Partition(mst, seg, sess, sr)
+
+    # Obtener la lista de los simbolos
     l = pa.getList()
 
+    # Crear un objeto para clasificar
     c = Classify()
+
+    # Clasisifcar los simbolos
     result = c.classify(l)
 
-    img_prediction = ImgPred(basename(image_path), l, result[1])
-    return img_prediction
+    # Crear un objeto para tener los atributos de la imagen predecida
+    img_prediccion = ImgPred(basename(ruta_imagen), l, result[1])
 
+    # Retornar el objeto con los atributos asignados
+    return img_prediccion
 
+# Programa Principal
 if __name__ == '__main__':
-    model_path = join(getcwd(), "model", "model.ckpt")
+    # Obtener la ruta del modelo
+    ruta_modelo = join(getcwd(), "model", "model.ckpt")
 
+    # Definir la ruta de la imagen a predecir
     #image_folder_path = argv[1]
     image_folder_path = "./equations2"
     isWindows_flag = False
     
+    # Verificar de que forma esta la ruta de las imagenes
     if len(argv) == 3:
         isWindows_flag = True
     if isWindows_flag:
-        image_paths = glob(image_folder_path + '\\*png')
+        ruta_imagens = glob(image_folder_path + '\\*png')
     else:
-        image_paths = glob(image_folder_path + '/*png')
+        ruta_imagens = glob(image_folder_path + '/*png')
 
+    # Inicializar una lista vacia de imagenes predecidas
     results = []
+
+    # Crear sesiones de Tensor Flow para cada imagen
     with tf.Session() as sess:
-        sr = SymbolRecognition(sess, model_path, trainflag = False)
-        for image_path in image_paths:
-            impred = predict(image_path, sess, sr)
+        sr = SymbolRecognition(sess, ruta_modelo, trainflag = False)
+        for ruta_imagen in ruta_imagens:
+            # Predecir la imagen
+            impred = predict(ruta_imagen, sess, sr)
+
+            # Agregar la imagen predecida a la lista
             results.append(impred)
 
-    with open('predictions.txt','w') as fout:
+    # Escribir las predicciones en un archivo .txt
+    with open('prediccions.txt','w') as fout:
         for res in results:
             fout.write(str(res))
