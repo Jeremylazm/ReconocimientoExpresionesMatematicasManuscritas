@@ -2,6 +2,7 @@ import shelve
 import numpy as np
 import json
 class ReadDB:
+    # Lee la tabla del training del preprocesamiento
     def __init__(self):
         self.sh = shelve.open("training",writeback=False)
 
@@ -18,7 +19,7 @@ class ReadDB:
             return 0
         else:
             return 1
-
+    # Produce matrices numpy de imágenes de entrenamiento y sus etiquetas correspondientes. Luego podemos introducirlos en el DataWrapperFinal.py
     def generateLists(self):
         symDict = {}
         count = 0
