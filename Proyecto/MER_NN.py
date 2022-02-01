@@ -13,6 +13,8 @@ from skimage.transform import resize,warp,AffineTransform
 from scipy import ndimage
 from readDB import *
 
+# El archivo del modelo de entrenamiento, que contiene toda la estructura de la red neuronal. 
+# La entrada de este es de DataWrapperFianl.py
 def input_wrapper(f):
 	image = misc.imread(f)
 	sx,sy = image.shape
@@ -30,7 +32,7 @@ def input_wrapper(f):
 	if np.max(image) > 1:
 		image = image/255.
 	return image
-
+# Clase para la reconocimiento de los simbolos en las imagenes
 class SymbolRecognition(object):
     def __init__(self,sess, model_path = None, symbols_path = 'symbols.txt', trainflag = True):
         self.sess = sess
@@ -46,7 +48,7 @@ class SymbolRecognition(object):
         symbol_list = []
         if model_path is not None:
             self.saver.restore(sess,model_path)
-
+    # Lote de capas
     def batch_norm_layer(self,inputs, decay = 0.9):
         is_training = self.trainflag
         epsilon = 1e-3
@@ -66,7 +68,8 @@ class SymbolRecognition(object):
         else:
             return tf.nn.batch_normalization(inputs,
                 pop_mean, pop_var, beta, scale, epsilon),pop_mean,pop_var
-
+    
+    # Agregar ruido
     def add_noise(self,curr_patch):
         if np.max(curr_patch) > 1:
             curr_patch /= 255.
@@ -82,7 +85,8 @@ class SymbolRecognition(object):
         curr_patch[curr_patch > 1] = 1
         curr_patch[curr_patch < 0] = 0
         return curr_patch
-
+    
+    # Deformacion de la imagen
     def image_deformation(self,image):
         random_shear_angl = np.random.random() * np.pi/6 - np.pi/12
         random_rot_angl = np.random.random() * np.pi/6 - np.pi/12 - random_shear_angl
@@ -139,7 +143,7 @@ class SymbolRecognition(object):
 	# 	for i in range(batch_size):
 	# 		images[i,:,:] = misc.imresize(np.reshape(data[0][i],(28,28)),(32,32))
 	# 	return images,labels
-
+    # Pesos de las variables
     def weight_variable(self,shape):
         initial = tf.truncated_normal(shape, stddev=0.01)
         var = tf.Variable(initial)
@@ -229,7 +233,7 @@ class SymbolRecognition(object):
             self.W_conv1 = W_conv1
         else:
             self.readout = readout
-            
+    # Entrenamiento       
     def train(self, data, out_path = './model/model.ckpt',target_num = 38):
         #cross_entropy_mean = -tf.reduce_mean(self.y_ * tf.log(self.y_conv))
         cross_entropy_mean = tf.reduce_mean(
