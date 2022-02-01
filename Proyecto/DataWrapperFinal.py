@@ -5,10 +5,13 @@ from skimage.transform import resize,warp,AffineTransform
 import random
 
 class MnistDigitsData(object):
+	# Tome las matrices numpy de imágenes de entrenamiento y las etiquetas correspondientes 
+	# como entrada para producir un conjunto de entrenamiento
 	def __init__(self,imageList,labelsList):
 		self.count =0
 		self.labelList = labelsList
 		self.imageList = imageList
+		
 	def image_deformation(self,image):
 		random_shear_angl = np.random.random() * np.pi/6 - np.pi/12
 		random_rot_angl = np.random.random() * np.pi/6 - np.pi/12 - random_shear_angl
@@ -28,6 +31,8 @@ class MnistDigitsData(object):
 									shear = random_shear_angl,
 									scale = (random_x_scale,random_y_scale))
 		return warp(image,trans_mat.inverse,output_shape=image.shape)
+	
+	# El método Get_valid es para usar los primeros 500 registros como conjuntos de validación cruzada
 	def get_valid(self,size = 500):
 		images = np.zeros((size,32,32))
 		labelsList = np.asarray(self.labelList)
@@ -51,6 +56,8 @@ class MnistDigitsData(object):
 		#print shuffleList
 		#print type(shuffleList[1])
 		return shuffleList
+	
+	# El método Next_batch es para producir el lote de conjunto de entrenamiento en cada paso
 	def next_batch(self,batch_size):
 		images = np.zeros((batch_size,32,32))
 		labelsList = np.asarray(self.labelList)
