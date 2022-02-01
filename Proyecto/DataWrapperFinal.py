@@ -50,7 +50,7 @@ class MnistDigitsData(object):
 	def shuffle(self):
 		pass
 	def shuffleNum(self,batch_size):
-		#Get batch_size of non-repeated random number
+		# Obtiene el lote_tamaño de número aleatorio no repetido
 		wholeSize = len(self.labelList)
 		shuffleList = random.sample(range(500, wholeSize), batch_size)
 		#print shuffleList
