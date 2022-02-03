@@ -23,7 +23,9 @@ import scipy
 from PIL import Image
 
 symMap = {}
+#abre el archivo Symbol_mapping en formato json 
 with open('symbol_mapping.json', 'r') as opened:
+    #lee el archivo Symbol_mapping y los guarda en symMap
     symMap = json.loads(opened.read())
 print(symMap)
 
@@ -36,14 +38,14 @@ class Partition(object):
         self.lst = []
         self.generateList()
         self.count = defaultdict(lambda:0)
-
+    #retorna la lista
     def getList(self):
         return self.lst
 
     def calculateCount(self):
         for e in self.lst:
             self.count[e[0]]+=1
-
+    #retorna la cantidad
     def getCount(self):
         return self.count
 
@@ -51,8 +53,10 @@ class Partition(object):
         generated = []
         dots = []
         visited = set([])
+        #verifica si la longitud de la lista es igual a 0
         if len(self.mst)==0:
             return
+        #
         for e in self.mst:
             queue = deque([e])
             break
@@ -73,6 +77,7 @@ class Partition(object):
             if p=="-":
                 # print p,bb
                 pass
+            #se define la multiplicacion
             elif p=="dot":
                 # print "dot case"
                 self.lst.pop()
@@ -104,6 +109,7 @@ class Partition(object):
                     # if probability>0.:
                     self.lst.append(["dots",bb[0],bb[1],bb[2],bb[3],dots])
                     dots = []
+            #se define que es una multiplicacion
             elif p=="x" and len(self.lst)>1 and self.lst[-2][0] in ["a","b","c","d","frac"]:
                 self.lst[-1][0]="mul"
 
@@ -121,15 +127,21 @@ class Partition(object):
         tList = []
         deleteList = []
         idx = 0
+        #recorremos la lista  
         for e in self.lst:
+            # guardamos en la lista centerList guardamos los datos apartir de la indice 1
             centerList.append([(e[1]+e[2])/2,(e[3]+e[4])/2])
+            #si en la pocicion 0 es igual a "-" guardamos en la lista minusList
             if e[0]=="-":
                 minusList.append(idx)
+            #si en la pocicion 0 es igual a "s" guardamos en la lista sList
             elif e[0]=="s":
                 sList.append(idx)
+            #si en la pocicion 0 es igual a "t" guardamos en la lista tList
             elif e[0]=="t":
                 tList.append(idx)
             idx+=1
+        # recorremos en la minusList esta comineza con "-" en el cual definiremos si es una fracion  una igauldad
         for i in minusList:
             if i in deleteList:
                 continue
@@ -174,11 +186,12 @@ class Partition(object):
                     self.lst[i][0] = "frac"
                 elif down>0:
                     self.lst[i][0] = "bar"
-
+        # recorremos en la sList esta comineza con "s" en el cual definiremos si es una funcion coseno o seno
         for i in sList:
             if i in deleteList:
                 continue
             k=i-1
+            #la funcion coseno si k=i-1 la pocicion actual se encuentra "s", en k se encuentra "o"  y en k-1 se encuentra "c" se trata de la funcion coseno
             if k>0 and self.lst[k][4]<self.lst[k+1][3] and self.lst[k][0]=="o" and self.lst[k-1][0]=="c":
                 # to the left of i
                 deleteList.append(i)
@@ -187,6 +200,7 @@ class Partition(object):
                 l = self.lst[i][5]+self.lst[i-1][5]+self.lst[i-2][5]
                 bb = self.seg.get_combined_bounding(l)
                 self.lst.append(["cos",bb[0],bb[1],bb[2],bb[3],l])
+            #la funcion seno si en la pocion actual mas 3 encontramos a n es la funcion seno
             elif i+3<le and self.lst[i+3][0]=="n":
                 # right
                 deleteList.append(i)
@@ -196,7 +210,7 @@ class Partition(object):
                 l = self.lst[i][5]+self.lst[i+1][5]+self.lst[i+2][5]+self.lst[i+3][5]
                 bb = self.seg.get_combined_bounding(l)
                 self.lst.append(["sin",bb[0],bb[1],bb[2],bb[3],l])
-
+        # recorremos en la tList esta comineza con "t" en el cual definiremos si es una funcion tagente
         for i in  tList:
             if i in deleteList:
                 continue
@@ -213,18 +227,23 @@ class Partition(object):
             del self.lst[e]
 
     def input_wrapper_arr(self,image):
+        #obtenemos las dimenciones de la imagen
         sx,sy = image.shape
+        #obtenemos la diferencia de las dimenciones de la imagen 
         diff = np.abs(sx-sy)
         sx,sy = image.shape
+        
         image = np.pad(image,((sx//8,sx//8),(sy//8,sy//8)),'constant')
         if sx > sy:
             image = np.pad(image,((0,0),(diff//2,diff//2)),'constant')
         else:
             image = np.pad(image,((diff//2,diff//2),(0,0)),'constant')
-
+        #hace un dilatacion a la imagen
         image = dilation(image)#, footprint= disk(max(sx,sy)/32))
         #image = np.array(Image.fromarray(image).resize((32,32), Image.BILINEAR))
+        #redimenciona la imagen
         image = misc.imresize(image,(32,32))
+        #binariza la imagen 
         if np.max(image) > 1:
             image = image/255.
         return image
