@@ -120,8 +120,8 @@ if __name__ == '__main__':
     ruta_modelo = join(getcwd(), "model", "model.ckpt")
 
     # Definir la ruta de la imagen a predecir
-    #image_folder_path = argv[1]
-    image_folder_path = "./equations2"
+    image_folder_path = argv[1]
+    #image_folder_path = "./equations2"
     isWindows_flag = False
     
     # Verificar de que forma esta la ruta de las imagenes
