@@ -1,19 +1,22 @@
 import scipy
+from scipy import misc
 from scipy import ndimage
 import numpy as np
 import sys
+import datetime
 from skimage import color
 
 class Segmentation(object):
 
-    def __init__(self, img):
+    def __init__(self, path):
+        img = misc.imread(path)
         self.origin = img
         # Aplicar filtro gaussiano para eliminar ruido y suavizar la imagen
         blur_radius = 1.0
         imgf = ndimage.gaussian_filter(img, blur_radius)
         # Encontrar componentes (número de caracteristicas)
         # labeled_img es una imagen etiquetada de acuerdo a num_features
-        threshold = 100
+        threshold = 50
         self.labeled_img, self.num_features = ndimage.label(imgf > threshold)
         # Obtener las coordenadas del cuadro delimitador para cada componente etiquetado
         self.labels = self.calculate_labels()
