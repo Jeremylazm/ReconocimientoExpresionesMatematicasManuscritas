@@ -148,7 +148,7 @@ class EquationFCN:
         self.sess.run(tf.global_variables_initializer())
         correct_prediction = tf.equal(tf.argmax(self.h_readout, 1), tf.argmax(self.y_, 1))
         accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-        for i in range(2500):
+        for i in range(1000):
             batch_images, batch_labels = symbol_data.get_training_batch(30)
             if i % 100 == 0:
                 train_accuracy = accuracy.eval(feed_dict={
