@@ -56,17 +56,17 @@ class ImgPred():
 	def __str__(self):
 		res = self.nombre_imagen + '\t' + \
 		    str(len(self.lista_simbolos)) + '\t' + self.latex + '\n'
-		for sym_pred in self.lista_simbolos:
-			res += sym_pred[0]
-			res += "\t"
-			res += str(sym_pred[3])
-			res += "\t"
-			res += str(sym_pred[1])
-			res += "\t"
-			res += str(sym_pred[4])
-			res += "\t"
-			res += str(sym_pred[2])
-			res += "\n"
+		#for sym_pred in self.lista_simbolos:
+		#	res += sym_pred[0]
+		#	res += "\t"
+		#	res += str(sym_pred[3])
+		#	res += "\t"
+		#	res += str(sym_pred[1])
+		#	res += "\t"
+		#	res += str(sym_pred[4])
+		#	res += "\t"
+		#	res += str(sym_pred[2])
+		#	res += "\n"
 		return res
 
 # Definir un metodo para predecir una nueva imagen
