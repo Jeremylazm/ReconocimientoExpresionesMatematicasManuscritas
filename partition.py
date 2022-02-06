@@ -102,10 +102,10 @@ class Partition(object):
                     self.lst.append(["dots",bb[0],bb[1],bb[2],bb[3],dots])
                     dots = []
             
-            '''
-            Si a la izquierda y derecha del símbolo “x” existen variables o el símbolo “frac”, entonces se reconoce como una 
-            multiplicación “mul”
-            '''
+            
+            #Si a la izquierda y derecha del símbolo “x” existen variables o el símbolo “frac”, entonces se reconoce como una 
+            #multiplicación “mul”
+            
             elif p=="x" and len(self.lst)>1 and self.lst[-2][0] in ["a","b","c","d","frac"]:
                 self.lst[-1][0]="mul"
 
