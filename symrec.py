@@ -162,7 +162,7 @@ class EquationFCN:
                 self.y_: batch_labels,
                 self.keep_prob: 0.5
             })
-        model_path = self.saver.save(self.sess, "model/model.ckpt")
+        #model_path = self.saver.save(self.sess, "model/model.ckpt")
         print("Model saved at: " + model_path)
 
     def test_standard(self, _):
